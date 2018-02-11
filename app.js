@@ -3,9 +3,7 @@ function onReady() {
   const newToDoText = document.getElementById('newToDoText');
   const toDoList = document.getElementById('toDoList');
 
-  addToDoForm.addEventListener();
-  addToDoForm.addEventListener('submit', event => {
-    event.preventDefault();
+
 
     //get the text
     let title = newToDoText.value;
@@ -32,21 +30,16 @@ function onReady() {
     newToDoText.value = '';
 
     //delete task
-    deleteToDo(id) {
-      for(var i = 0; i < toDoList.length; i++) {
-        if(toDoList[i].id === id) {
-          toDoList(i, 1);
-          break;
-        }
-      }
-      this.onReady();
+    var deleteTask = function() {
+      console.log("Delete task...");
+      var listItem = this.parentNode;
+      var ul = listItem.parentNode;
+      ul.removeChild(listItem);
     }
-    toDoList();
-  });
-}
 
 
 window.onload = function() {
   alert("The window has loaded!");
   onReady();
+  }
 };
