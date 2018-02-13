@@ -14,13 +14,13 @@ function onReady(){
       title: newToDoText.value,
       complete: false,
       id: id++
-      
+
     });
 
     newToDoText.value = '';
 
     renderTheUI();
-  
+
   }
 
   function renderTheUI() {
@@ -36,15 +36,13 @@ function onReady(){
       title.textContent = toDo.title;
 
       //delete button//
-       
+
       object.addEventListener("delete", newLi, deleteToDo => toDo.id, renderTheUI());
 
       function deleteToDo(id){
         toDos = toDos.filter(item => item.id !== id);
-        document.getElementById("delete").onclick = function() {deleteToDo(id)};
 
 
-        
       }
 
       toDoList.appendChild(newLi);
@@ -59,6 +57,6 @@ function onReady(){
       newToDoText.value = '';
     });
 
-    renderTheUI() 
+    renderTheUI()
 
   }
