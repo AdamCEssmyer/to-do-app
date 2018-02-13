@@ -12,12 +12,8 @@ function onReady() {
 
         toDos.push({
           title: newToDoText.value,
-          complete: false
-          id: 0++;
-
-
-
-
+          complete: false,
+          id: id++
         });
 
         newToDoText.value = '';
@@ -46,7 +42,7 @@ function onReady() {
           toDoList.appendChild(newLi);
           newLi.appendChild(checkbox);
         });
-        
+
           //Delete ToDo function
           function deleteToDo(id){
             if(toDos = toDos.filter(item => item.id ! == id)){
