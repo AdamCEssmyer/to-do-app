@@ -45,8 +45,10 @@ function onReady() {
 
           //Delete ToDo function
           function deleteToDo(id){
-            (toDos = toDos.filter(item => item.id ! == id))
+            toDos = toDos.filter(item => item.id !== id);
             }
+
+            object.onclick = function() {deleteToDo()};
 
       //Event Listener
       addToDoForm.addEventListener('submit', event =>{
