@@ -3,11 +3,12 @@ function onReady(){
   let id = 0;
   let toDos = [];
   const addToDoForm = document.getElementById('addToDoForm');
-  const addToDoForm = document.getElementById('newToDoText');
+  const newToDoText = document.getElementById('newToDoText');
   const toDoList = document.getElementById('toDoList');
+  const deleteTask  = document.getElementById('deleteTask');
 
   function createNewToDo() {
-
+      console.log(newToDoText.value);
     if(!newToDoText.value) {return;}
 
     toDos.push({
@@ -20,14 +21,14 @@ function onReady(){
     newToDoText.value = '';
 
     renderTheUI();
-
+      console.log(toDos.length);
   }
-
+      //Render the UI//
   function renderTheUI() {
     const toDoList = document.getElementById('toDoList');
 
     toDos.forEach(function(toDo) {
-      const newToDo = document.createElement('li');
+      const newLi = document.createElement('li');
 
       const checkbox = document.createElement('input');
       checkbox.type = "checkbox";
@@ -35,15 +36,11 @@ function onReady(){
       const title = document.createElement('span');
       title.textContent = toDo.title;
 
-      //delete button//
-
-      object.addEventListener("delete", newLi, deleteToDo => toDo.id, renderTheUI());
-
-      function deleteToDo(id){
-        toDos = toDos.filter(item => item.id !== id);
+      //Checkbox click needs to change toDo.complete value
 
 
-      }
+
+
 
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
@@ -53,10 +50,25 @@ function onReady(){
 
     addToDoForm.addEventListener('submit', event => {
       event.preventDefault();
+
       createNewToDo();
       newToDoText.value = '';
     });
 
+    deleteTask.addEventListener('click', event => {
+      event.preventDefault();
+      //Get ids that are checked
+    });
+
+    function deleteToDo(id){
+      toDos = toDos.filter(item => item.id !== id);
+    }
+
+
     renderTheUI()
 
+  }
+
+  window.onload = function(){
+    onReady();
   }
