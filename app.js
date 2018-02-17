@@ -26,9 +26,13 @@ function onReady(){
       //Render the UI//
   function renderTheUI() {
     const toDoList = document.getElementById('toDoList');
+      toDoList.innerHTML = "";
+
 
     toDos.forEach(function(toDo) {
       const newLi = document.createElement('li');
+
+      newLi.innerHTML = toDo.title;
 
       const checkbox = document.createElement('input');
       checkbox.type = "checkbox";
