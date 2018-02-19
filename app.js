@@ -1,82 +1,69 @@
-function onReady(){
+let id = 1
+let toDos = [{id: 0, title: 'first item'}]
+const addToDoForm = document.getElementById('addToDoForm')
+const newToDoText = document.getElementById('newToDoText')
+const toDoList = document.getElementById('toDoList')
+const deleteTask  = document.getElementById('deleteTask')
 
-  let id = 0;
-  let toDos = [];
-  const addToDoForm = document.getElementById('addToDoForm');
-  const newToDoText = document.getElementById('newToDoText');
-  const toDoList = document.getElementById('toDoList');
-  const deleteTask  = document.getElementById('deleteTask');
+// adds a new todo to the toDo array with the given title
+function createToDo(title) {
+  if(!title) return
 
-  function createNewToDo() {
-      console.log(newToDoText.value);
-    if(!newToDoText.value) {return;}
+  toDos.push({
+    title: title,
+    complete: false,
+    id: id++
+  })
+}
 
-    toDos.push({
-      title: newToDoText.value,
-      complete: false,
-      id: id++
+// delete a todo given an id
+function deleteTodo(id) {
+console.log('should delete', id)
+  toDos = toDos.filter(function(todo) {
+    return todo.id === id
+  })
+}
 
-    });
+function render() {
+  const toDoList = document.getElementById('toDoList')
 
-    newToDoText.value = '';
+  // wipe everything out of the element
+  toDoList.innerHTML = ""
 
-    renderTheUI();
-      console.log(toDos.length);
-  }
-      //Render the UI//
-  function renderTheUI() {
-    const toDoList = document.getElementById('toDoList');
+  // for each todo, add it to the DOM
+  toDos.forEach(function(toDo) {
+    const listItem = document.createElement('li')
 
-      toDoList.innerHTML = "";
+    listItem.innerHTML = toDo.title
 
-    toDos.forEach(function(toDo) {
-      const newLi = document.createElement('li');
+    const deleteButton = document.createElement('button')
+    deleteButton.innerHTML = "delete"
+    // this creates a closure in that the id referenced here is "closed over"
+    deleteButton.addEventListener('click', (e) => {
+      deleteTodo(toDo.id)
+      // re-render the UI so the item is gone
+      render()
+    })
 
-      newLi.innerHTML = toDo.title;
+    // append the button to the list item
+    listItem.appendChild(deleteButton)
 
-      const checkbox = document.createElement('input');
-      checkbox.type = "checkbox";
+    // append the list item to the list of todos
+    toDoList.appendChild(listItem)
+  })
+}
 
-      const title = document.createElement('span');
-      title.textContent = toDo.title;
+addToDoForm.addEventListener('submit', function(e) {
+  event.preventDefault()
 
-      //Checkbox click needs to change toDo.complete value
-      checkbox.onClick = toDo.complete;
+  // create a new todo
+  createToDo(newToDoText.value)
 
+  // wipe the input value
+  newToDoText.value = ''
 
+  // re-render the UI
+  render()
+})
 
-
-
-      toDoList.appendChild(newLi);
-      newLi.appendChild(checkbox);
-    });
-
-  }
-
-    addToDoForm.addEventListener('submit', event => {
-      event.preventDefault();
-
-      createNewToDo();
-      newToDoText.value = '';
-    });
-
-    deleteTask.addEventListener('click', event => {
-      event.preventDefault();
-      //Get ids that are checked
-
-      var id = document.getElementById('toDos').checked;
-      console.log(id);
-      });
-
-    toDo.onClick = function deleteToDo(id){
-      toDos = toDos.filter(item => item.id !== id);
-    }
-
-
-    renderTheUI()
-
-  }
-
-  window.onload = function(){
-    onReady();
-  }
+render()
