@@ -8,9 +8,9 @@ function onReady(){
   const deleteTask  = document.getElementById('deleteTask');
 
   function createNewToDo() {
-
+      console.log(newToDoText.value);
     if(!newToDoText.value) {return;}
-      console.log(toDos.length);
+
     toDos.push({
       title: newToDoText.value,
       complete: false,
@@ -21,13 +21,13 @@ function onReady(){
     newToDoText.value = '';
 
     renderTheUI();
-
+      console.log(toDos.length);
   }
       //Render the UI//
   function renderTheUI() {
     const toDoList = document.getElementById('toDoList');
-      toDoList.innerHTML = "";
 
+      toDoList.innerHTML = "";
 
     toDos.forEach(function(toDo) {
       const newLi = document.createElement('li');
@@ -41,12 +41,7 @@ function onReady(){
       title.textContent = toDo.title;
 
       //Checkbox click needs to change toDo.complete value
-        Object.prototype.toggle =
-        function() {
-          var target = this.firstChild;
 
-          target.checked = !target.checked;
-        };
 
 
 
