@@ -41,6 +41,7 @@ function onReady(){
       title.textContent = toDo.title;
 
       //Checkbox click needs to change toDo.complete value
+      checkbox.onClick = toDo.complete;
 
 
 
@@ -62,9 +63,12 @@ function onReady(){
     deleteTask.addEventListener('click', event => {
       event.preventDefault();
       //Get ids that are checked
-    });
 
-    function deleteToDo(id){
+      var id = document.getElementById('toDos').checked;
+      console.log(id);
+      });
+
+    toDo.onClick = function deleteToDo(id){
       toDos = toDos.filter(item => item.id !== id);
     }
 
